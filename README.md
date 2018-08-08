@@ -28,7 +28,27 @@ services:
         --NotebookApp.certfile=/etc/ssl/notebook/jupyter.pem"
 ```
 
+## Example with a custom user
 
+```YAML
+version: '2'
+services:
+    datascience-notebook:
+        image: jupyter/base-notebook:latest
+        volumes:
+            - /tmp/jupyter_test_dir:/home/docker_worker/work            
+        ports:
+            - 8891:8888
+        command: "start-notebook.sh"
+        user: root
+        environment:
+          NB_USER: docker_worker
+          NB_UID: 1008
+          NB_GID: 1011
+          CHOWN_HOME: 'yes'
+          CHOWN_HOME_OPTS: -R
+
+```
 ## The environment file .env
 
 ```bash
